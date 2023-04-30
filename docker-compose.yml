@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - '5678:5678'
+      - "5000:5000"
+  
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - NEW_POSTGRES_NAME=api_db
+      - POSTGRES_NAME=api_db
+      - POSTGRES_DB=api_db
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./.ignore/postgres:/var/lib/postgresql/data
+    logging:
+      driver: none
