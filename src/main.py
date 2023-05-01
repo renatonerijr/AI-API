@@ -27,14 +27,14 @@ class UserInput(BaseModel):
         return profanity.censor(res)
 
 
-# @app.post("/input-cleanup")
-# async def input_cleanup(
-#     user_input: UserInput,
-#     session=Depends(get_session)
-# ):
-#     safety_prompt = SAFETY_PROMPT.replace('<<INPUT>>', user_input.input)
-#     response = openai.Completion.create(model="text-davinci-003", prompt=safety_prompt, temperature=0, max_tokens=300)
-#     return response
+@app.post("/input-cleanup")
+async def input_cleanup(
+    user_input: UserInput,
+    session=Depends(get_session)
+):
+    safety_prompt = SAFETY_PROMPT.replace('<<INPUT>>', user_input.input)
+    response = openai.Completion.create(model="text-davinci-003", prompt=safety_prompt, temperature=0, max_tokens=300)
+    return response
 
 async def complete_prompt(
     user_input: UserInput,
