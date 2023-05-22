@@ -69,7 +69,7 @@ async def complete_chat_prompt(
         for op in operation_info:
             prompt += f"{op.payload['role'].upper()}: {op.payload['message']}"
 
-    prompt += user_input.input
+    prompt += f"USER: {user_input.input}"
     prompt = prompt.replace('\n', '')
     print(prompt)
     completion = openai.Completion.create(
